@@ -20,6 +20,21 @@ filtered_tools = SmartToolSelector(
 )
 ```
 
+## Before vs After binding
+```python
+# BEFORE: bind all tools (e.g., 20 tools)
+llm_with_tools = llm.bind_tools(tools)
+
+# AFTER: bind only top_k semantic matches (e.g., 3 tools)
+filtered_tools = SmartToolSelector(
+    "planing trip to dubai and hotel",
+    tools,
+    mode="semantic",
+    top_k=3,
+)
+llm_with_tools = llm.bind_tools(filtered_tools)
+```
+
 ## Modes and accuracy
 - `mode="lite"` (default): TF-IDF keyword matching. Fast and offline, but less semantic.
 - `mode="semantic"`: Embedding-based matching. Higher accuracy for intent-heavy queries.
